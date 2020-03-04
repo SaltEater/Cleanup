@@ -1,5 +1,6 @@
 package com.openclassrooms.cleanup;
 
+
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule;
 import androidx.room.Room;
 import androidx.test.InstrumentationRegistry;
@@ -11,6 +12,7 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
 
 import static junit.framework.TestCase.assertNull;
 import static junit.framework.TestCase.assertTrue;
@@ -30,6 +32,7 @@ public class DaoTest {
                 .allowMainThreadQueries()
                 .build();
     }
+
 
     // DATA SET FOR TEST
     private static long TASK_ID = 1;
