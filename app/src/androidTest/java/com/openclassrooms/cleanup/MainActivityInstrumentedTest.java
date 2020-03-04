@@ -8,11 +8,17 @@ import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.rule.ActivityTestRule;
 
 import com.cleanup.todoc.R;
+import com.cleanup.todoc.model.Task;
 import com.cleanup.todoc.ui.MainActivity;
 
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
@@ -34,6 +40,23 @@ import static org.junit.Assert.assertThat;
 public class MainActivityInstrumentedTest {
     @Rule
     public ActivityTestRule<MainActivity> rule = new ActivityTestRule<>(MainActivity.class);
+
+    @Before
+    public void setUp(){
+        cleanDatabase(rule);
+    }
+    @After
+    public void close(){
+        cleanDatabase(rule);
+    }
+
+    public static void cleanDatabase(ActivityTestRule<MainActivity> rule){
+        MainActivity activity = rule.getActivity();
+        List<Task> tasks = activity.getTaskViewModel().getAllTasks().getValue();
+        for(Task task : tasks) {
+            activity.getTaskViewModel().deleteTask(task);
+        }
+    }
 
     @Test
     public void addAndRemoveTask() {
@@ -62,7 +85,6 @@ public class MainActivityInstrumentedTest {
 
     @Test
     public void sortTasks() {
-
         onView(withId(R.id.fab_add_task)).perform(click());
         onView(withId(R.id.txt_task_name)).perform(replaceText("aaa Tâche example"));
         onView(withId(android.R.id.button1)).perform(click());

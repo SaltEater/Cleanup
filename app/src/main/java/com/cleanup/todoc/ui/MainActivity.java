@@ -320,4 +320,8 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
          */
         NONE
     }
+
+    public TaskViewModel getTaskViewModel(){
+        return taskViewModel;
+    }
 }
